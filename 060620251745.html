@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>Генератор красивої кнопки</title>
+    <title>Генератор класної кнопки для Google Sites, ...</title>
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -14,7 +14,7 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);   
             color: #e0e0e0;
             text-align: center;
         }
@@ -106,12 +106,12 @@
             transform: translateY(0);
         }
 
+        /* Центрування кнопки */
         #previewContainer {
             margin-top: 2rem;
-            padding: 20px;
-            background-color: #2a2a4a;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            padding: 0;
+            background-color: transparent;
+            border: none;
             min-height: 100px;
             display: flex;
             justify-content: center;
@@ -133,6 +133,7 @@
     </style>
 </head>
 <body>
+
     <h1>Генератор класної кнопки</h1>
     <input type="text" id="buttonText" placeholder="Введіть текст кнопки" oninput="updatePreview()">
     <input type="text" id="buttonLink" placeholder="Введіть URL посилання" oninput="updatePreview()">
@@ -152,58 +153,63 @@
             codeContainer.innerHTML = '';
 
             if (text && link) {
+                // Додаємо кнопку до попереднього перегляду
                 const newButton = document.createElement('a');
                 newButton.href = link;
                 newButton.className = 'animated-button';
                 newButton.textContent = text;
                 previewContainer.appendChild(newButton);
 
+                // Формуємо чистий HTML для копіювання (без фону)
                 const buttonCode = `<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated Button</title>
+    <title>Кнопка</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: #f0f0f0;
+            background-color: white;
         }
-        .animated-button {
-            padding: 1.3em 3em;
-            font-size: 14px;
+
+        .clean-button {
+            padding: 1em 2em;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 2.5px;
             font-weight: 500;
             color: #ffffff;
             background-color: #2a2a4a;
             border: 2px solid #23c483;
             border-radius: 45px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
             text-decoration: none;
             display: inline-block;
+            transition: all 0.3s ease;
         }
-        .animated-button:hover {
+
+        .clean-button:hover {
             background-color: #23c483;
             box-shadow: 0 15px 20px rgba(46, 229, 157, 0.5);
             color: #1a1a2e;
             transform: translateY(-5px);
         }
-        .animated-button:active {
+
+        .clean-button:active {
             transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <a href="${link}" class="animated-button">${text}</a>
+    <a href="${link}" class="clean-button">${text}</a>
 </body>
 </html>`;
+
                 codeContainer.textContent = buttonCode.trim();
             }
         }
@@ -214,7 +220,7 @@
             if (text) {
                 navigator.clipboard.writeText(text).then(() => {
                     alert('Код кнопки скопійовано!');
-                }).catch(() => {
+                }).catch(err => {
                     alert('Помилка при копіюванні коду.');
                 });
             } else {
@@ -222,5 +228,6 @@
             }
         }
     </script>
+
 </body>
 </html>
